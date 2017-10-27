@@ -27,6 +27,40 @@ class Calculator extends Component {
     })
   }
 
+  setOperator(operator){
+    if ( !this.state.operator ) {
+      this.setState({
+        operator: operator,
+        temp: parseInt(this.state.display, 10), display: '0'
+      })
+    }
+  }
+
+  calculate(){
+    if ( this.state.operator === ''){
+      return
+    }
+    var result;
+
+     switch (this.state.operator) {
+      case "+":
+        result = this.state.temp + parseInt(this.state.display, 10);
+      break;
+      case "-":
+        result = this.state.temp - parseInt(this.state.display, 10);
+      break;
+      case "/":
+        result = this.state.temp / parseInt(this.state.display, 10);
+      break;
+      case "*":
+       result = this.state.temp * parseInt(this.state.display, 10);
+      break;
+      default:
+      break;
+    }
+    this.setState({ display:String(result)}); 
+  }
+
   render(){
     return (
       <div id="calculator-container">
@@ -52,11 +86,11 @@ class Calculator extends Component {
       <div className="btn eight"  onClick={ () => { this.setDisplay('8'); } }></div>
       <div className="btn nine"   onClick={ () => { this.setDisplay('9'); } }></div>
 
-      <div className="btn equal"></div>
-      <div className="btn multiply"></div>
-      <div className="btn divide"></div>
-      <div className="btn subtract"></div>
-      <div className="btn add"></div>
+      <div className="btn equal"  onClick={ () => { this.calculate(); } }></div>
+      <div className="btn multiply" onClick={ () => { this.setOperator('*'); } }></div>
+      <div className="btn divide"   onClick={ () => { this.setOperator('/'); } }></div>
+      <div className="btn subtract" onClick={ () => { this.setOperator('-'); } }></div>
+      <div className="btn add"      onClick={ () => { this.setOperator('+'); } }></div>
     </div>
   </div>
 
